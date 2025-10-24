@@ -1,0 +1,61 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Nhập chỉ số điện{% endblock %}
+
+
+{% block main-content %}
+<div id="model-electricity">
+    <div class="form_navbar navbar_room">
+        <h4 class="title-room">Nhập chỉ số điện</h4>
+        <div class="form-submit">
+            <a class="add_room" href="{% url 'home' %}"><button class="btn btn-normal">Trở về</button></a>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col room-list">
+            <ul class="list-container">
+                <li><label for="">Danh sách nhà</label></li>
+                <li><select size="1">
+                        <option value="">------</option>
+                        {% for house in House %}
+                        <option value="{{house.id}}">{{house.nameHouse}}</option>
+                        {% endfor %}
+                    </select>
+                </li>
+            </ul>
+        </div> 
+    </div>
+
+    <form action="." method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col room-list">
+                <ul class="list-container">
+                    <li><label for="">Danh sách phòng<label></li>
+                    <li><select name="room" size="1">
+                            <option value="">-----------</option>
+                            {% for room in Room %}
+                            <option value="{{room.id}}">{{room.roomsNumber}}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                </ul>
+            </div>
+            <div class="col new-electricity">
+                <ul class="list-container">
+                    <li><label for="">Chỉ số điện</label></li>
+                    <li><input class="inp" type="text" name="index_electricity" value="0"></li>
+                </ul>
+            </div>
+            <div class="col month-year">
+                <ul class="list-container">
+                    <li><label for="">Tháng/Năm</label></li>
+                    <li><input class="inp" type="date" name="date"></li>
+                </ul>
+            </div>
+            <button class="btn btn-primary" type="submit">Lưu</button>
+        </div>
+    </form>
+</div>
+{% endblock main-content %}

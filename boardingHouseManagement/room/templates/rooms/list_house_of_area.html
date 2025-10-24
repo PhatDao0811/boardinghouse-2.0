@@ -1,0 +1,50 @@
+{% extends "pages/base.html" %}
+
+{% block main-content %}
+<div class="model-room">
+    <div class="form_navbar navbar_room">
+        <h4 class="title-room">Danh sách nhà của khu vực {{inf_area.nameDistrict}}</h4>
+        <div class="form-submit">
+            <a class="add_room back" href="{% url 'list_area' %}"><button class="btn btn-normal" type="button">Trở
+                    về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="display-body-table-container-house">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 200px;">Tên nhà</th>
+                        <th style="width: 300px;">Địa chỉ</th>
+                        <th style="width: 100px;">Nhân viên</th>
+                        <th style="width: 100px;">Khu vực</th>
+                        <th style="width: 150px;">Thao tác</th>
+                    </tr>
+                </tbody>
+                {% for house in house_of_area %}
+                <tr>
+                    <td style="text-align: center;">{{house.id}}</td>
+                    <td style="text-align: center;">{{house.nameHouse}}</td>
+                    <td style="text-align: center; line-height: 25px;">{{house.address}}</td>
+                    <td style="text-align: center; line-height: 25px;">{{house.personnel.fullname}}</td>
+                    <td style="text-align: center;">{{house.area}}</td>
+                    <td>
+                        <div class="td-item">
+                            <a class="list-item-link edit-room" href="{% url 'edit_house' house.id %}"><button class=""
+                                    type="button">Sửa</button></a>
+                            <a class="list-item-link edit-room" href="{% url 'delete_house' house.id %}"><button
+                                    class="" type="button">Xóa</button></a>
+                            {% if house.room.all %}
+                            <a class="list-item-link edit-room"
+                                href="{% url 'get_rooms' house.id %}"><button>Phòng</button></a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

@@ -1,0 +1,407 @@
+.navbar_room {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.navbar_room::after {
+    content: "";
+    position: absolute;
+    border-bottom: 2px solid rgba(35, 35, 35, 0.2);
+    left: 0;
+    right: 0;
+    top: 40px;
+}
+
+.title-room,
+.title-house {
+    font-size: 1.8rem;
+    padding-top: 5px;
+}
+
+.list-room-container {
+    position: relative;
+    height: 756px;
+}
+
+.list-room-container::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40px;
+}
+
+.display-body-table-container-admin-room {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 137px;
+    display: flex;
+    width: 100%;
+    bottom: 233px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-body-table-container-room {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 16px;
+    display: flex;
+    width: 100%;
+    bottom: 400px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-body-table-container-area {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 85px;
+    display: flex;
+    width: 100%;
+    bottom: 238px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-body-table-container-admin-area {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 15px;
+    display: flex;
+    width: 100%;
+    bottom: 242px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-body-table-container-admin-guest {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 80px;
+    display: flex;
+    width: 100%;
+    bottom: 240px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-body-table-container-guest {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 17px;
+    display: flex;
+    width: 100%;
+    bottom: 350px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-body-table-container-search-personnel {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 15px;
+    display: flex;
+    width: 100%;
+    bottom: 400px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-body-table-container-personnel {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 75px;
+    display: flex;
+    width: 100%;
+    bottom: 238px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-body-table-container-admin-house {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 120px;
+    display: flex;
+    width: 100%;
+    bottom: 238px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-body-table-container-house {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 20px;
+    display: flex;
+    width: 100%;
+    bottom: 330px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-body-table-container-electricity {
+    background-color: rgb(250, 248, 250);
+    padding-top: 45px;
+    border-radius: 7px;
+    position: absolute;
+    top: 82px;
+    display: flex;
+    width: 100%;
+    bottom: 260px;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 8px grey;
+}
+
+.display-table {
+    width: 100%;
+    border-spacing: 8px;
+    font-size: 20px;
+    border-collapse: collapse;
+}
+
+.display-table td {
+    overflow: hidden;
+    height: 100px;
+    border-bottom: 1px solid grey;
+}
+
+.td-item {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.list-room {
+    width: 190px;
+    margin: 4px 4px;
+}
+
+.list-room-item {
+    border: 2px solid rgb(161, 158, 158);
+    border-radius: 2px;
+    width: 190px;
+    height: 150px;
+}
+
+.information-room {
+    margin: 5px;
+}
+
+.price-room {
+    margin: 35px 5px 5px;
+}
+
+.add_guests {
+    margin: 5px;
+}
+
+.add_room,
+.add_house {
+    color: #918f8f;
+    text-decoration: none;
+}
+
+.edit-room {
+    padding-right: 5px;
+}
+
+.delete_room {
+    width: 50px;
+}
+
+
+.list-house-form {
+    display: flex;
+}
+
+.list-house {
+    width: 150px;
+    margin: 4px 4px;
+}
+
+.list-house-item {
+    border: solid rgb(161, 158, 158);
+    border-radius: 2px;
+    width: 129px;
+    height: 65px;
+}
+
+
+.list-personnel {
+    width: 170px;
+    margin: 4px 4px;
+}
+
+.list-personnel-item {
+    border: 1px solid rgb(161, 158, 158);
+    border-radius: 2px;
+    min-width: 150px;
+    height: 65px;
+}
+
+.btn {
+    min-width: 124px;
+    height: 34px;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn.btn-primary {
+    background-color: #EE4D2D;
+}
+
+.btn.btn-normal:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.interface-house {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.interface-room {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-around;
+
+}
+
+.interface-personnel {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.personnel-name {
+    text-align: center;
+}
+
+.inp-address {
+    min-width: 450px;
+}
+
+.inp {
+    outline: none;
+}
+
+.form-acreage {
+    display: flex;
+}
+
+.form-interior {
+    display: flex;
+}
+
+.link-house {
+    display: flex;
+    justify-content: center;
+}
+
+.icon-link {
+    margin-left: 4px;
+}
+
+.form-newroom {
+    border: 1px solid #918f8f;
+}
+
+.form-new-area {
+    border: 1px solid #918f8f;
+    width: 500px;
+}
+
+.form-new-house {
+    border: 1px solid #918f8f;
+    width: 800px;
+}
+
+.form-addroom {
+    margin-bottom: 10px;
+}
+
+.form-add-area {
+    display: flex;
+    justify-content: center;
+}
+
+.form-title-room {
+    font-size: 1.4rem;
+    margin-right: 5px;
+}
+
+
+.notification {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+
+.form-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    width: 500px;
+    height: 100px;
+}
+
+.form-delete-item {
+    display: flex;
+    justify-content: center;
+}
+
+.submit {
+    display: flex;
+    justify-content: center;
+}
+
+.submit-room {
+    margin-top: 25px;
+}
+
+.submit-house {
+    margin-left: 250px;
+}
+
+.form-nameDistrict {
+    display: flex;
+    align-items: center;
+}
+
+.form-item {
+    padding: 5px;
+}
+
+.btn-submit {
+    margin: 25px 0 0 15px;
+}
+
+
+.delete {
+    margin: 100px 0px 100px 260px;
+}

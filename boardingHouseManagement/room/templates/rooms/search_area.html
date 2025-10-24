@@ -1,0 +1,47 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Danh sách nhà{% endblock %}
+
+
+{% block main-content %}
+<div class="model_house">
+    <div class="navbar_room">
+        <div class="title-house">Danh sách khu vực tìm kiếm</div>
+        <div class="navbar-item">
+            <a class="add_room" href="{% url 'list_area' %}"><button class="btn btn-normal" type="button">Trở về</button></a>
+        </div>
+    </div>
+    {% if search_nameDistrict %}
+    <div class="list-room-container">
+        <div class="display-body-table-container-admin-area">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 200px;">Quận/Huyện</th>
+                        <th style="width: 150px;">Thao tác</th>
+                    </tr>
+                </tbody>
+                {% for area in search_nameDistrict %}
+                <tr>
+                    <td style="text-align: center;">{{area.id}}</td>
+                    <td style="text-align: center;">{{area.nameDistrict}}</td>
+                    <td>
+                        <div class="td-item">
+                            <a class="list-item-link edit-room" href="{% url 'edit_area' area.id %}"><button type="button">Sửa</button></a>
+                            <a class="list-item-link edit-room" href="{% url 'delete_area' area.id %}"><button type="button">Xóa</button></a>
+                            {% if area.house_area.all %}
+                            <a class="list-item-link edit-room" href="{% url 'get_house_of_area' area.id %}"><button type="button">Nhà</button></a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <h2 style="text-align: center;">Không tìm thấy thông tin bạn nhập</h2>
+    {% endif %}
+</div>
+{% endblock main-content %}

@@ -1,0 +1,23 @@
+
+{% extends "pages/base.html" %}
+
+{% block title %}thống kê theo khách{% endblock %}
+
+{% block main-content %}
+<div id="model-room">
+    <div class="navbar_room">
+        <div class="title-house">Danh sách thống kê</div>
+        <div class="navbar-item">
+            <a class="add_room" href="{% url 'list_statistical' %}"><button class="btn btn-normal">Trở về</button></a>
+        </div>
+    </div>
+    <div>
+        {% if from_month %}
+            <h2>Thống kê khách thuê phòng từ tháng {{ from_month }} đến tháng {{ to_month }} là: {{ percent }}% </h2>
+        {% else %}
+            <h2>Thống kê khách thuê phòng từ tháng None đến tháng None là: None </h2>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock main-content %}

@@ -1,0 +1,41 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Sửa nhà{% endblock %}
+
+{% block main-content %}
+<div id="form_addroom">
+    <div class="form_navbar navbar_room">
+        <h4 class="title-room">Sửa thông tin khu vực</h4>
+        <div class="form-submit">
+            <a class="add_room back" href="{% url 'list_area' %}"><button class="btn btn-normal" type="button">Trở
+                    về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="form-newroom">
+            <form action="." method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{inf_area.id}}">
+                <div class="row form-item">
+                    <div class="col form-house">
+                        <label class="form-title-room" for="nameDistrict">Tên nhà</label>
+                        <input class="inp" type="text" name="nameDistrict" value="{{inf_area.nameDistrict}}">
+                        {% if update_area.nameDistrict %}
+                        <span>{{update_area.nameDistrict.errors}}</span>
+                        {% else %}
+                        <input class="inp" type="text" name="nameDistrict" value="{{update_area.nameDistrict}}">
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <div class="submit">
+                            <button class="btn btn-primary" type="submit">Lưu</button>
+                            <a href="{% url 'delete_area' inf_area.id %}"><button class="btn btn-normal"
+                                    type="button">Xóa</button></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

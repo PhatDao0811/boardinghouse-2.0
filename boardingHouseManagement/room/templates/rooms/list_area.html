@@ -1,0 +1,74 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Danh sách khu vực{% endblock %}
+
+
+{% block main-content %}
+<div class="model_area">
+    <div class="navbar_room">
+        <div class="title-house">Danh sách khu vực</div>
+        <div class="form-search">
+            <form action="{% url 'search_area' %}" method="POST">
+                {% csrf_token %}
+                <label for="">Tìm kiếm</label>
+                <input type="search" name="nameDistrict">
+                <button class="btn btn-normal" type="submit">Tìm kiếm</button>
+            </form>
+        </div>
+        <div class="navbar-item">
+            <a class="add_room" href="{% url 'home' %}"><button class="btn btn-normal">Trở về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="form-add-area">
+            <div class="form-new-area">
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div class="row form-item">
+                        <div class="col form-nameDistrict">
+                            <label class="form-title-room" for="nameHouse">Tên Quận/Huyện</label>
+                            <input class="inp" type="text" name="nameDistrict">
+                            <br>
+                            {% if add_area.nameDistrict %}
+                            <span>{{add_area.nameDistrict.errors}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            <div class="submit">
+                                <button class="btn btn-primary" type="submit">Thêm</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="display-body-table-container-area">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 200px;">Quận/Huyện</th>
+                        <th style="width: 150px;">Thao tác</th>
+                    </tr>
+                </tbody>
+                {% for area in Area %}
+                <tr>
+                    <td style="text-align: center;">{{area.id}}</td>
+                    <td style="text-align: center;">{{area.nameDistrict}}</td>
+                    <td>
+                        <div class="td-item">
+                            <a class="list-item-link edit-room" href="{% url 'edit_area' area.id %}"><button type="button">Sửa</button></a>
+                            <a class="list-item-link edit-room" href="{% url 'delete_area' area.id %}"><button type="button">Xóa</button></a>
+                            {% if area.house_area.all %}
+                            <a class="list-item-link edit-room" href="{% url 'get_house_of_area' area.id %}"><button type="button">Nhà</button></a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

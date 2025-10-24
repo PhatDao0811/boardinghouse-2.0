@@ -1,0 +1,54 @@
+{% extends "pages/base.html" %}
+
+{% block title %}thống kê{% endblock %}
+
+{% block main-content %}
+<!-- thống kê chỉ số khác theo từng tháng và chỉ số điện, xuất hóa đơn gồm tên người dùng, sdt, khu vực, số nhà, chỉ số điện,  -->
+<div id="form-statistical">
+    <div class="navbar_room">
+        <div class="title-house">Thống kê</div>
+        <div class="navbar-item">
+            <a class="add_room" href="{% url 'home' %}"><button class="btn btn-normal">Trở về</button></a>
+        </div>
+    </div>
+    <div class="form-statistical-guest" style="margin-bottom: 20px;">
+        <form action="{% url 'information_statistical_guest' %}"  method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div style="display: flex; align-items: center; font-size: 1.4rem;">Thống kê số lượng khách thuê phòng theo từng tháng</div>
+                <div class="col month-year">
+                    <label>Từ tháng</label>
+                    <br>
+                    <input class="inp" type="month" name="from_month">
+                </div>
+                <div>
+                    <label>Đến tháng</label>
+                    <br>
+                    <input class="inp" type="month" name="to_month">
+                </div>
+                <div class="col">
+                   <button class="btn btn-normal" type="submit">Thống kê khách</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="form-statistical-electricity">
+        <form action="{% url 'information_statistical_electricity' %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div style="display: flex; align-items: center; font-size: 1.4rem;">Thống kê chỉ số điện theo từng tháng</div>
+                <div class="col month-year">
+                    <label>Tháng</label>
+                    <br>
+                    <input class="inp" type="month" name="from_month_electricity">
+                </div>
+                <div class="col">
+                    <button class="btn btn-normal" type="submit">Thống kê chỉ số điện</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock main-content %}

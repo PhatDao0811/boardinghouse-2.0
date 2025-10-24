@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'base/css/room.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/register.css' %}">
+    <title>Đăng ký</title>
+</head>
+
+<body>
+    <div id="model">
+        <form action="." method="POST" class="form">
+            {% csrf_token %}
+            <div class="form-title">
+                <label for="title" style="font-size: 1.4rem;">Đăng ký tài khoản</label>
+                <a class="list-item-link register" href="{% url 'home' %}"><button class="closeTab"
+                        type="button">X</button></a>
+            </div>
+            <div class="form-group">
+                <label for="username" class="form-label">Tên Đăng Nhập</label>
+                <input type="text" name="username">
+                <span>{{form.username.errors}}</span>
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" name="email">
+                <span>{{form.email.errors}}</span>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Mật Khẩu</label>
+                <input type="password" name="password">
+            </div>
+            <div class="form-group">
+                <label for="confirm_password" class="form-label">Nhập lại mật Khẩu</label>
+                <input type="password" name="confirm_password">
+                <span>{{form.confirm_password.errors}}</span>
+            </div>
+
+            <div class="form-submit">
+                <button class="btn btn-primary" type="submit">Đăng ký</button>
+                <p>Bạn đã có tài khoản ? <a class="list-item-link" style="align-content: center" href="{% url 'user_login' %}">Đăng nhập</a></p>
+            </div>
+
+        </form>
+    </div>
+</body>
+
+</html>

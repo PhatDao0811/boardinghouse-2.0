@@ -1,0 +1,22 @@
+{% extends "pages/base.html" %}
+
+{% block main-content %}
+<div class="delete">
+    <div class="form-delete">
+        <form action="." method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{inf_electricity.id}}">
+            <div class="delete-room">
+                <div class="notification">
+                    <h3>Bạn có chắc là muốn xóa chỉ số {{inf_electricity.index_electricity}} của phòng {{inf_electricity.room.roomsNumber}} này ?</h3>
+                </div>
+                <div class="form-delete-item">
+                    <button class="btn btn-primary" type="submit">Đồng ý</button>
+                    <a class="add_room back" href="{% url 'list_electricity' %}"><button class="btn btn-normal" type="button">Trở
+                            về</button></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock main-content %}

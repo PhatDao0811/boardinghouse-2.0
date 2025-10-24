@@ -1,0 +1,58 @@
+{% extends 'pages/base.html' %}
+
+{% block main-content %}
+<div class="model-money">
+    <div class="navbar_room">
+        <div class="title-house">Tiền điện của phòng {{room_number}} - Nhà {{room_house}}</div>
+        <div class="navbar-item">
+            <a class="add_room" href="{% url 'list_room' %}"><button class="btn" type="button">Trở về</button></a>
+        </div>
+    </div>
+    {% if message %}
+    <h2 style="text-align: center;">{{message}}</h2>
+    {% else %}
+    <div class="list-room-container">
+        <div class="display-body-table-container-room">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 100px;">Tiền điện</th>
+                        <th style="width: 100px;">Tiền nước</th>
+                        <th style="width: 100px;">Tiền wifi</th>
+                        <th style="width: 100px;">Tiền phòng(triệu VNĐ)</th>
+                        <th style="width: 150px;">Số tiền(VNĐ)</th>
+                    </tr>
+                </tbody>
+                <tr>
+                    <td style="text-align: center;">{{electricity_bill}}</td>
+                    <td style="text-align: center;">{{water_bill}}</td>
+                    <td style="text-align: center;">{{wifi_bill}}</td>
+                    <td style="text-align: center;">{{room_bill}}</td>
+                    <td style="text-align: center;">{{total_bill}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="display-body-table-container-room">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 100px;">Tiền điện</th>
+                        <th style="width: 100px;">Tiền nước</th>
+                        <th style="width: 100px;">Tiền wifi</th>
+                        <th style="width: 100px;">Tiền phòng(triệu VNĐ)</th>
+                        <th style="width: 150px;">Số tiền(VNĐ)</th>
+                    </tr>
+                </tbody>
+                <tr>
+                    <td style="text-align: center;">{{electricity_bill}}</td>
+                    <td style="text-align: center;">{{water_bill}}</td>
+                    <td style="text-align: center;">{{wifi_bill}}</td>
+                    <td style="text-align: center;">{{room_bill}}</td>
+                    <td style="text-align: center;">{{total_bill}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>    
+    {% endif %}
+</div>
+{% endblock main-content %}

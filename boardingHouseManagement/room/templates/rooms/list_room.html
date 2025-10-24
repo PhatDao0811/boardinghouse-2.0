@@ -1,0 +1,166 @@
+{% extends "pages/base.html" %}
+
+
+{% block title %}Danh sách phòng{% endblock %}
+{% block main-content %}
+<div id="model-room">
+    <div class="navbar_room">
+        <div class="title-house">Danh sách phòng</div>
+        <div class="form-search">
+            <form action="{% url 'search_room' %}" method="POST">
+                {% csrf_token %}
+                <label for="" class="form-title-room">Tìm kiếm</label>
+                <input type="search" name="roomsNumber">
+                <button class="btn" type="submit">Tìm kiếm</button>
+            </form>
+        </div>
+        <div class="navbar-item">
+            <a class="add_room" href="{% url 'home' %}"><button class="btn" type="button">Trở về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="form-add-room">
+            {% if user.username == 'admin' %}
+            <div class="form-newroom">
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div class="row form-item">
+                        <div class="col form-house">
+                            <label class="form-title-room" for="house">Nhà</label>
+                            <select name="house" size="1">
+                                <option value=""></option>
+                                {% for house in House %}
+                                <option value="{{house.id}}">{{house.nameHouse}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col form-room">
+                            <label class="form-title-room" for="roomsNumber">Phòng số</label>
+                            <input class="inp" type="text" name="roomsNumber">
+                            {% if new_room.roomsNumber %}
+                            <span>{{new_room.roomsNumber.errors}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col form-acreage">
+                            <label class="form-title-room" for="acreage">Diện tích phòng</label>
+                            <input class="inp" type="text" name="acreage">
+                            {% if new_room.acreage %}
+                            <span>{{new_room.acreage.errors}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col form-price">
+                            <label class="form-title-room" for="price">Giá phòng</label>
+                            <input class="inp" type="text" name="price">
+                            {% if new_room.price %}
+                            <span>{{new_room.price.errors}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row form-item">
+                        <div class="col form-quantity">
+                            <label class="form-title-room" for="quantity">Số người tối đa</label>
+                            <input class="inp" type="text" name="quantity">
+                            {% if new_room.quantity %}
+                            <span>{{new_room.quantity.errors}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            <div class="form-interior">
+                                <label class="form-title-room" for="interior">Nội thất của phòng</label><br>
+                                <textarea class="inp" name="interior" cols="50" rows="5"></textarea>
+                                {% if new_room.interior %}
+                                <span>{{new_room.interior.errors}}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="submit submit-room">
+                                <button class="btn btn-primary" type="submit">Thêm</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        <br>
+        {% if user.username == 'admin' %}
+        <div class="display-body-table-container-admin-room">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 200px;">Số phòng</th>
+                        <th style="width: 150px;">Diện tích(m²)</th>
+                        <th style="width: 100px; line-height: 25px;">Giá(triệu VNĐ)</th>
+                        <th style="width: 100px;">Số người</th>
+                        <th style="width: 400px; text-align: center;">Nội thất</th>
+                        <th style="width: 150px;">Tên nhà</th>
+                        <th style="width: 250px;">Nhân viên</th>
+                        <th style="width: 100px; line-height: 25px;">Số điện thoại</th>
+                        <th style="width: 150px;">Thao tác</th>
+                    </tr>
+                </tbody>
+                {% for room in Room %}
+                <tr>
+                    <td style="text-align: center;">{{room.id}}</td>
+                    <td style="text-align: center;">{{room.roomsNumber}}</td>
+                    <td style="text-align: center;">{{room.acreage}}</td>
+                    <td style="text-align: center;">{{room.price}}</td>
+                    <td style="text-align: center;">{{room.quantity}}</td>
+                    <td style="line-height: 25px; text-align: center;">{{room.interior}}</td>
+                    <td style="text-align: center;">{{room.house}}</td>
+                    <td style="text-align: center;">{{room.house.personnel.fullname}}</td>
+                    <td style="text-align: center;">{{room.house.personnel.phone}}</td>
+                    <td>
+                        <div class="td-item">
+                            <a class="list-item-link edit-room" href="{% url 'edit_room' room.id %}"><button
+                                    type="button">Sửa</button></a>
+                            <a class="list-item-link edit-room" href="{% url 'delete_room' room.id %}"><button
+                                    type="button">Xóa</button></a>
+                            <a class="list-item-link edit-room" href="{% url 'calculate_bill' room.id %}"><button
+                                    type="button">Tính tiền</button></a>
+                            {% if room.guest.all %}
+                            <a class="list-item-link edit-room" href="{% url 'guest_checkout' room.id %}"><button
+                                    type="button">Khách</button></a>
+                            {% endif %}
+                        </div>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% else %}
+        <div class="display-body-table-container-room">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 200px;">Số phòng</th>
+                        <th style="width: 150px;">Diện tích</th>
+                        <th style="width: 100px;">Giá</th>
+                        <th style="width: 100px;">Số lượng</th>
+                        <th style="width: 300px; text-align: center;">Nội thất</th>
+                        <th style="width: 150px;">Tên nhà</th>
+                        <th style="width: 250px;">Chủ nhà</th>
+                        <th style="width: 100px;">Số điện thoại</th>
+                    </tr>
+                </tbody>
+                {% for room in Room %}
+                <tr>
+                    <td style="text-align: center;">{{room.roomsNumber}}</td>
+                    <td style="text-align: center;">{{room.acreage}}</td>
+                    <td style="text-align: center;">{{room.price}}</td>
+                    <td style="text-align: center;">{{room.quantity}}</td>
+                    <td style="line-height: 25px;">{{room.interior}}</td>
+                    <td style="text-align: center;">{{room.house}}</td>
+                    <td style="text-align: center;">{{room.house.personnel.fullname}}</td>
+                    <td style="text-align: center;">{{room.house.personnel.phone}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock main-content %}

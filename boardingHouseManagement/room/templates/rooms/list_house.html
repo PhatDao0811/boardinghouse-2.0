@@ -1,0 +1,143 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Danh sách nhà{% endblock %}
+
+
+{% block main-content %}
+<div class="model_house">
+    <div class="navbar_room">
+        <div class="title-house">Danh sách nhà</div>
+        <div class="form-search">
+            <form action="{% url 'search_house' %}" method="POST">
+                {% csrf_token %}
+                <label for="" class="form-title-room">Tìm kiếm</label>
+                <input type="search" name="nameHouse">
+                <button class="btn btn-normal" type="submit">Tìm kiếm</button>
+            </form>
+        </div>
+        <div class="navbar-item">
+            <a class="add_room" href="{% url 'home' %}"><button class="btn btn-normal">Trở về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="form-add-house">
+            {% if user.username == 'admin' %}
+            <div class="form-new-house">
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div class="row form-item">
+                        <div class="col form-personnel">
+                            <label class="form-title-room" for="area">Khu vực</label>
+                            <select name="area" size="1">
+                                <option value=""></option>
+                                {% for areas in Area %}
+                                <option value="{{areas.id}}">{{areas.nameDistrict}}</option>
+                                {% endfor %}
+                            </select>
+                            {% if new_house.area %}
+                            <span>{{new_house.area.errors}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col form-nameHouse">
+                            <label class="form-title-room" for="nameHouse">Tên nhà</label>
+                            <input class="inp" type="text" name="nameHouse">
+                            {% if new_house.nameHouse %}
+                            <span>{{new_house.nameHouse.errors}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col form-personnel">
+                            <label class="form-title-room" for="personnel">Nhân viên</label>
+                            <select name="personnel" size="1">
+                                <option value=""></option>
+                                {% for personnel in Personnel %}
+                                <option value="{{personnel.id_personnel}}">{{personnel.fullname}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-item">
+                        <div class="col">
+                            <label class="form-title-room" for="address">Địa chỉ nhà</label>
+                            <input class="inp inp-address" type="text" name="address">
+                            {% if new_house.address %}
+                            <span>{{new_house.address.errors}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="submit submit-house">
+                            <button class="btn btn-primary" type="submit">Thêm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        <br>
+        {% if user.username == 'admin' %}
+        <div class="display-body-table-container-admin-house">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 200px;">Tên nhà</th>
+                        <th style="width: 300px;">Địa chỉ</th>
+                        <th style="width: 100px;">Nhân viên</th>
+                        <th style="width: 100px;">Số điện thoại</th>
+                        <th style="width: 100px;">Khu vực</th>
+                        <th style="width: 150px;">Thao tác</th>
+                    </tr>
+                </tbody>
+                {% for house in House %}
+                <tr>
+                    <td style="text-align: center;">{{house.id}}</td>
+                    <td style="text-align: center;">{{house.nameHouse}}</td>
+                    <td style="text-align: center; line-height: 25px;">{{house.address}}</td>
+                    <td style="text-align: center; line-height: 25px;">{{house.personnel.fullname}}</td>
+                    <td style="text-align: center; line-height: 25px;">{{house.personnel.phone}}</td>
+                    <td style="text-align: center;">{{house.area}}</td>
+                    <td>
+                        <div class="td-item">
+                            <a class="list-item-link edit-room" href="{% url 'edit_house' house.id %}"><button class=""
+                                    type="button">Sửa</button></a>
+                            <a class="list-item-link edit-room" href="{% url 'delete_house' house.id %}"><button
+                                    class="" type="button">Xóa</button></a>
+                            {% if house.room.all %}
+                            <a class="list-item-link edit-room"
+                                href="{% url 'get_rooms' house.id %}"><button>Phòng</button></a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% else %}
+        <div class="display-body-table-container-house">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 100px;">Tên nhà</th>
+                        <th style="width: 300px;">Địa chỉ</th>
+                        <th style="width: 100px;">Chủ nhà</th>
+                        <th style="width: 100px;">Số điện thoại</th>
+                        <th style="width: 100px;">Khu vực</th>
+                    </tr>
+                </tbody>
+                {% for house in House %}
+                <tr>
+                    <td style="text-align: center;">{{house.nameHouse}}</td>
+                    <td style="text-align: center; line-height: 25px;">{{house.address}}</td>
+                    <td style="text-align: center; line-height: 25px;">{{house.personnel.fullname}}</td>
+                    <td style="text-align: center; line-height: 25px;">{{house.personnel.phone}}</td>
+                    <td style="text-align: center;">{{house.area}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+{% endblock main-content %}

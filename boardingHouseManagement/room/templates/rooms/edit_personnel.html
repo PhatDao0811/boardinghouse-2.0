@@ -1,0 +1,47 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Sửa nhà{% endblock %}
+
+{% block main-content %}
+<div id="form_addroom">
+    <div class="form_navbar navbar_room">
+        <h4 class="title-room">Sửa thông tin nhân viên</h4>
+        <div class="form-submit">
+            <a class="add_room back" href="{% url 'list_personnel' %}"><button class="btn btn-normal" type="button">Trở
+                    về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="form-newroom">
+            <form action="." method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id_personnel" value="{{ inf_house.id_personnel }}">
+                <div class="row form-item">
+                    <div class="col form-house">
+                        <label class="form-title-room" for="fullname">Tên nhân viên</label>
+                        <input class="inp" type="text" name="fullname" value="{{inf_personnel.fullname}}">
+                        {% if update_personnel.fullname %}
+                        <span>{{update_personnel.fullname.errors}}</span>
+                        {% else %}
+                        <input class="inp" type="text" name="fullname" value="{{update_personnel.fullname}}">
+                        {% endif %}
+                    </div>
+                    <div class="col form-address">
+                        <label class="form-title-room" for="address">Số điện thoại</label>
+                        <input class="inp" type="text" name="phone" value="{{inf_personnel.phone}}">
+                        {% if update_personnel.phone %}
+                        <span>{{update_personnel.phone.errors}}</span>
+                        {% else %}
+                        <input class="inp" type="text" name="phone" value="{{update_personnel.phone}}">
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit">Lưu</button>
+                        <a href="{% url 'delete_personnel' inf_personnel.fullname %}"><button class="btn btn-normal" type="button">Xóa</button></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

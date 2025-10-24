@@ -1,0 +1,50 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Danh sách nhà{% endblock %}
+
+
+{% block main-content %}
+<div class="model_house">
+    <div class="navbar_room">
+        <div class="title-house">Kết quả tìm kiếm</div>
+        <div class="navbar-item">
+            <a class="add_room" href="{% url 'list_personnel' %}"><button class="btn btn-normal" type="button">Trở về</button></a>
+        </div>
+    </div>
+    {% if search_personnels %}
+    <div class="list-room-container">
+        <div class="display-body-table-container-search-personnel">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 150px;">Mã nhân viên</th>
+                        <th style="width: 300px;">Họ tên nhân viên</th>
+                        <th style="width: 150px;">Số điện thoại</th>
+                        <th style="width: 150px;">Thao tác</th>
+                    </tr>
+                </tbody>
+                {% for personnel in search_personnels %}
+                <tr>
+                    <td style="text-align: center;">{{personnel.id_personnel}}</td>
+                    <td style="text-align: center;">{{personnel.fullname}}</td>
+                    <td style="text-align: center;">{{personnel.phone}}</td>
+                    <td>
+                        <div class="td-item">
+                            <a class="list-item-link edit-room" href="{% url 'edit_personnel' personnel.id_personnel %}"><button type="button">Sửa</button></a>
+                            <a class="list-item-link edit-room" href="{% url 'delete_personnel' personnel.id_personnel %}"><button type="button">Xóa</button></a>
+                            {% if personnel.house.all %}
+                            <a class="list-item-link edit-room" href="{% url 'get_house_of_personnel' personnel.id_personnel %}"><button type="button">Nhà</button></a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <h2 style="text-align: center;">Không tìm thấy thông tin bạn nhập</h2>
+    {% endif %}
+  
+</div>
+{% endblock main-content %}

@@ -1,0 +1,47 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Sửa nhà{% endblock %}
+
+{% block main-content %}
+<div id="form_addroom">
+    <div class="form_navbar navbar_room">
+        <h4 class="title-room">Sửa chỉ số điện cho phòng {{inf_electricity.room.roomsNumber}} - Nhà {{inf_electricity.room.house}}</h4>
+        <div class="form-submit">
+            <a class="add_room back" href="{% url 'list_electricity' %}"><button class="btn btn-normal"
+                    type="button">Trở
+                    về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="form-newroom">
+            <form action="." method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{inf_electricity.id}}">
+                <div class="row form-item">
+                    <div class="col old-electricity">
+                        <ul class="list-container">
+                            <li><label for="">Chỉ số điện</label></li>
+                            <li><input class="inp" type="text" name="index_electricity"
+                                    value="{{inf_electricity.index_electricity}}"></li>
+                            {% if update_electricity.index_electricity %}
+                            <span>{{update_electricity.index_electricity.errors}}</span>
+                            {% else %}
+                            <li><input class="inp" type="text" name="index_electricity"
+                                value="{{update_electricity.index_electricity}}"></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="col month-year">
+                        <ul class="list-container">
+                            <li><label for="">Thời gian</label></li>
+                            <li><input class="inp" type="date" name="date"
+                                    value="{{inf_electricity.date|date:'Y-m-d'}}"></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

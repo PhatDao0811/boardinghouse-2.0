@@ -1,0 +1,75 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Sửa phòng{% endblock %}
+
+{% block main-content %}
+<div id="form_addroom">
+    <div class="form_navbar navbar_room">
+        <h4 class="title-room">Sửa phòng {{inf_room.roomsNumber}} - Nhà {{inf_room.house}}</h4>
+        <div class="form-submit">
+            <a class="add_room back" href="{% url 'list_room' %}"><button class="btn btn-normal" type="button">Trở
+                    về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="form-newroom">
+            <form action="." method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ inf_room.id }}">
+                <div class="row form-item">
+                    <div class="col form-room">
+                        <label class="form-title-room" for="roomsNumber">Phòng số</label>
+                        <input class="inp" type="text" name="roomsNumber" value="{{inf_room.roomsNumber}}">
+                        {% if update_room.roomsNumber %}
+                        <span>{{update_room.roomsNumber.errors}}</span>
+                        {% else %}
+                        <input class="inp" type="text" name="roomsNumber" value="{{update_room.roomsNumber}}">
+                        {% endif %}
+                    </div>
+                    <div class="col form-acreage">
+                        <label class="form-title-room" for="acreage">Diện tích phòng</label>
+                        <input class="inp" name="acreage" type="text" value="{{inf_room.acreage}}">
+                        {% if update_room.acreage %}
+                        <span>{{update_room.acreage.errors}}</span>
+                        {% else %}
+                        <input class="inp" type="text" name="acreage" value="{{update_room.acreage}}">
+                        {% endif %}
+                    </div>
+                    <div class="col form-price">
+                        <label class="form-title-room" for="price">Giá phòng</label>
+                        <input class="inp" name="price" type="text" value="{{inf_room.price}}">
+                        {% if update_room.price %}
+                        <span>{{update_room.price.errors}}</span>
+                        {% else %}
+                        <input class="inp" type="text" name="price" value="{{update_room.price}}">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row form-item">
+                    <div class="col form-quantity">
+                        <label class="form-title-room" for="quantity">Số người tối đa</label>
+                        <input class="inp" name="quantity" type="text" value="{{inf_room.quantity}}">
+                        {% if update_room.quantity %}
+                        <span>{{update_room.quantity.errors}}</span>
+                        {% else %}
+                        <input class="inp" type="text" name="quantity" value="{{update_room.quantity}}">
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        <div class="form-interior">
+                            <label class="form-title-room" for="interior">Nội thất của phòng</label>
+                            <textarea class="inp" name="interior" cols="50" rows="5">{{inf_room.interior}}</textarea>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="submit submit-room">
+                            <button class="btn btn-primary" type="submit">Lưu</button>
+                            <a href="{% url 'delete_room' inf_room.id %}"><button class="btn btn-normal" type="button">Xóa</button></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

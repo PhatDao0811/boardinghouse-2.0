@@ -1,0 +1,63 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Thêm khách{% endblock %}
+
+{% block main-content %}
+<div id="model-guest">
+  <div class="form_navbar navbar_room">
+    <h4 class="title-room">Sửa thông tin khách</h4>
+    <div class="form-submit">
+      <a class="add_room back" href="{% url 'list_guests' %}"><button class="btn btn-normal" type="button">Trở
+          về</button></a>
+    </div>
+  </div>
+  <div class="list-room-container">
+    <div class="form-newroom">
+      <form method="POST" action=".">
+        {% csrf_token %}
+        <div class="row form-item">
+          <div class="col form-nameHouse">
+            <label class="form-title-room" for="room">Phòng</label>
+            <select name="room">
+              <option value="">--------</option>
+              {% for room in Room %}
+              {% if room.id == inf_guest.room.id %}
+              <option value="{{room.id}}" selected>{{room.roomsNumber}}</option>
+              {% else %}
+              <option value="{{room.id}}">{{room.roomsNumber}}(Nhà{{room.house}})</option>
+              {% endif%}
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col form-nameHouse">
+            <label class="form-title-room" for="fullname">Họ và tên</label>
+            <input type="text" name="fullname" value="{{inf_guest.fullname}}">
+            {% if update_guest.fullname %}
+            <span>{{update_guest.fullname.errors}}</span>
+            {% else %}
+            <input class="inp" type="text" name="fullname" value="{{update_guest.fullname}}">
+            {% endif %}
+          </div>
+          <div class="col form-address">
+            <label class="form-title-room" for="phone">Số điện thoại</label>
+            <input type="text" name="phone" value="{{inf_guest.phone}}">
+            {% if update_guest.phone %}
+            <span>{{update_guest.phone.errors}}</span>
+            {% else %}
+            <input class="inp" type="text" name="phone" value="{{update_guest.phone}}">
+            {% endif %}
+          </div>
+          <div class="col form-address">
+            <label class="form-title-room" for="phone">Ngày sửa</label>
+            <input class="inp" type="date" name="date" value="{{inf_guest.date|date:'Y-m-d'}}">
+          </div>
+        </div>
+        <div class="submit">
+          <button class="btn btn-primary" type="submit">Lưu</button>
+          <a href="{% url 'delete_guest' inf_guest.id %}"><button class="btn btn-normal" type="button">Xóa</button></a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

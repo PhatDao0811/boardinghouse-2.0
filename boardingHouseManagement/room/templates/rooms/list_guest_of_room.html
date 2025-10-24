@@ -1,0 +1,48 @@
+{% extends "pages/base.html" %}
+
+{% block main-content %}
+<div class="model">
+    <div class="form_navbar navbar_room">
+        <h4 class="title-room">Thông tin khách hàng</h4>
+        <div class="form-submit">
+            <a class="add_room back" href="{% url 'list_room' %}"><button class="btn btn-normal" type="button">Trở
+                    về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="display-body-table-container-guest">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 100px;">Họ tên</th>
+                        <th style="width: 100px;">Số điện thoại</th>
+                        <th style="width: 100px;">Phòng</th>
+                        <th style="width: 50px;">Thao tác</th>
+                    </tr>
+                </tbody>
+                {% for guest in guests %}
+                <tr>
+                    <td style="text-align: center;">{{guest.fullname}}</td>
+                    <td style="text-align: center;">{{guest.phone}}</td>
+                    <td style="text-align: center;">{{guest.room.roomsNumber}}</td>
+                    <td>
+                        <div class="td-item">
+                            <a class="list-item-link edit-room" href="{% url 'edit_guest' guest.id %}"><button class=""
+                                    type="button">Sửa</button></a>
+                            <a class="list-item-link edit-room" href="{% url 'delete_guest' guest.id %}"><button class=""
+                                    type="button">Xóa</button></a>
+                            <form method="post" action=".">
+                                {% csrf_token %}
+                                <input type="hidden" name="guest_id" value="{{ guest.id }}">
+                                <button type="submit">Trả phòng</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

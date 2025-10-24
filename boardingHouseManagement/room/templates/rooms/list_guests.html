@@ -1,0 +1,132 @@
+{% extends "pages/base.html" %}
+
+
+{% block title %}Danh sách khách{% endblock %}
+{% block main-content %}
+<div id="model-room">
+    <div class="navbar_room">
+        <div class="title-house">Danh sách khách</div>
+        <div class="form-search">
+            <form action="{% url 'search_guests' %}" method="POST">
+                {% csrf_token %}
+                <label for="fullname" class="form-title-room">Tìm kiếm</label>
+                <input type="search" name="fullname">
+                <button class="btn btn-normal" type="submit">Tìm kiếm</button>
+            </form>
+          
+        </div>
+        <div class="navbar-item">
+            <a class="add_room" href="{% url 'home' %}"><button class="btn btn-normal">Trở về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="form-add-guest">
+            {% if user.username == 'admin' %}
+            <div class="form-newroom">
+                <form method="POST" action=".">
+                    {% csrf_token %}
+                    <div class="row form-item">
+                        <div class="col form-nameHouse">
+                            <label class="form-title-room" for="room">Phòng</label>
+                            <select name="room">
+                                <option value=""></option>
+                                {% for room in Room %}
+                                <option value="{{room.id}}">{{room.roomsNumber}}(Nhà{{room.house}})</option>
+                                {% endfor %}
+                            </select>
+                            {% if new_guest.room %}
+                            <span>{{ new_guest.room.errors }}</span> 
+                            {% endif %}
+                        </div>
+                        <div class="col form-nameHouse">
+                            <label class="form-title-room" for="fullname">Họ và tên</label>
+                            <input type="text" name="fullname">
+                            {% if new_guest.fullname %}
+                            <span>{{new_guest.fullname.errors}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col form-address">
+                            <label class="form-title-room" for="phone">Số điện thoại</label>
+                            <input type="text" name="phone">
+                            {% if new_guest.phone %}
+                            <span>{{new_guest.phone.errors}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col form-address">
+                            <label class="form-title-room" for="phone">Ngày đăng ký</label>
+                            <input type="date" name="date">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="submit">
+                            <button class="btn btn-primary" type="submit">Thêm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        <br>
+        {% if user.username == 'admin' %}
+        <div class="display-body-table-container-admin-guest">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 200px;">Họ tên</th>
+                        <th style="width: 150px;">Số điện thoại</th>
+                        <th style="width: 150px;">Ngày đăng ký</th>
+                        <th style="width: 100px;">Phòng</th>
+                        <th style="width: 100px;">Nhà</th>
+                        <th style="width: 150px;">Thao tác</th>
+                    </tr>
+                </tbody>
+                {% for guest in Guests %}
+                <tr>
+                    <td style="text-align: center;">{{guest.id}}</td>
+                    <td style="text-align: center;">{{guest.fullname}}</td>
+                    <td style="text-align: center;">{{guest.phone}}</td>
+                    <td style="text-align: center;">{{guest.date|date:"d-m-Y"}}</td>
+                    <td style="text-align: center;">{{guest.room.roomsNumber}}</td>
+                    <td style="text-align: center;">{{guest.room.house}}</td>
+                    <td>
+                        <div class="td-item">
+                            <a class="list-item-link edit-room" href="{% url 'edit_guest' guest.id %}"><button
+                                    type="button">Sửa</button></a>
+                            <a class="list-item-link edit-room" href="{% url 'delete_guest' guest.id %}"><button
+                                    type="button">Xóa</button></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% else %}
+        <div class="display-body-table-container-guest">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 200px;">Họ tên</th>
+                        <th style="width: 150px;">Số điện thoại</th>
+                        <th style="width: 100px;">Phòng</th>
+                        <th style="width: 150px;">Nhà</th>
+                    </tr>
+                </tbody>
+                {% for guest in Guests %}
+                <tr>
+                    <td style="text-align: center;">{{guest.fullname}}</td>
+                    <td style="text-align: center;">{{guest.phone}}</td>
+                    <td style="text-align: center;">{{guest.room.roomsNumber}}</td>
+                    <td style="text-align: center;">{{guest.room.house}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock main-content %}
+
+

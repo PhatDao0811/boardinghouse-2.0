@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'base/css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'base/css/grid.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'base/css/register.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/room.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-free-6.4.2-web/fontawesome-free-6.4.2/css/all.min.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <div class="app">
+        <div class="header">
+            <div class="grid wide">
+                <nav class="header_navbar">
+                    <div class="header_navbar-img">
+                        <a href="{% url 'home' %}" class="header_navbar-img--link list-item-link">
+                            <img src="{% static 'image/home.jpg' %}" alt="Ảnh logo nhà trọ"
+                                style="max-width: 150px; height: 120px; border-radius: 50%;">
+                        </a>
+                    </div>
+
+                    <div class="header_naver-text">
+                        <h4>Ứng dụng quản lí nhà trọ</h4>
+                    </div>
+
+                    <div class="header_navber-user">
+                        <ul class="header_navber-user--list">
+                            {% if user.username %}
+                            <h4 class="text">Xin chào, {{user.username}}</h4>
+                            <li class=""><a href="{% url 'logout' %}" class="list-item-link header_navbar-item">Đăng
+                                    xuất</a>
+                            </li>
+
+                            {% else %}
+                            <li class=""><a class="list-item-link header_navbar-item header_navbar-item--separate"
+                                    href="{% url 'user_register' %}">Đăng ký</a></li>
+                            <li class=""><a class="list-item-link header_navbar-item"
+                                    href="{% url 'user_login' %}">Đăng nhập</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <br>
+        <div class="app__container">
+            <div class="grid wide">
+                <div class="row">
+                    <div class="col l-2">
+                        <div class="app-menu">
+                            <ul class="nav list-container">
+                                {% if user.username == 'admin' %}
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'home' %}">
+                                        <i class="fa-solid fa-house"></i>
+                                        Trang chủ
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'list_area' %}">
+                                        <i class="fa-solid fa-chart-area"></i>
+                                        Khu vực
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'list_house' %}">
+                                        <i class="fa-solid fa-house-user"></i>
+                                        Nhà
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'list_room' %}">
+                                        <i class="fa-solid fa-door-closed icon"></i>
+                                        Phòng
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'list_guests' %}">
+                                        <i class="fa-solid fa-user-check"></i>
+                                        Khách
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'list_electricity' %}">
+                                        <i class="fa-solid fa-bolt"></i>
+                                        Chỉ số điện
+                                    </a>
+                                </li>
+                                <li class="list-item"><a class="list-item-link" href="{% url 'list_personnel' %}">
+                                        <i class="fa-solid fa-user-tie"></i>
+                                        Nhân viên
+                                    </a>
+                                </li>
+                                <li class="list-item"><a class="list-item-link" href="{% url 'list_statistical' %}">
+                                        <i class="fa fa-users"></i>
+                                        Thống kê
+                                    </a>
+                                </li>
+{#                                <li class="list-item"><a class="list-item-link" href="{% url 'list_file_image' %}">#}
+{#                                        <i class="fa-solid fa-camera"></i>#}
+{#                                        Nhận diện#}
+{#                                    </a>#}
+{#                                </li>#}
+                                {% elif not user.username %}
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'home' %}">
+                                        <i class="fa-solid fa-house"></i>
+                                        Trang chủ
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'list_house' %}">
+                                        <i class="fa-solid fa-house-user"></i>
+                                        Nhà
+                                    </a>
+                                </li>
+{#                                <li class="list-item">#}
+{#                                    <a class="list-item-link" href="{% url 'list_room' %}">#}
+{#                                        <i class="fa-solid fa-door-closed icon"></i>#}
+{#                                        Phòng#}
+{#                                    </a>#}
+{#                                </li>#}
+                                {% else %}
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'home' %}">
+                                        <i class="fa-solid fa-house"></i>
+                                        Trang chủ
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'list_house' %}">
+                                        <i class="fa-solid fa-house-user"></i>
+                                        Nhà
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'empty_rooms' %}">
+                                        <i class="fa-solid fa-door-closed icon"></i>
+                                        Phòng còn trống
+                                    </a>
+                                </li>
+{#                                <li class="list-item">#}
+{#                                    <a class="list-item-link" href="{% url 'list_guests' %}">#}
+{#                                        <i class="fa-solid fa-user-check"></i>#}
+{#                                        Khách#}
+{#                                    </a>#}
+{#                                </li>#}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col l-10">
+                        <!-- Các chức năng sẽ xài lại cái này-->
+                        <div class="container-item">
+                            <!-- Chức năng -->
+                            {% block main-content %}{% endblock main-content %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

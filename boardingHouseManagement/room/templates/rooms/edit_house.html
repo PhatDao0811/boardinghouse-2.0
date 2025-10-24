@@ -1,0 +1,79 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Sửa nhà{% endblock %}
+
+{% block main-content %}
+<div id="form_addroom">
+    <div class="form_navbar navbar_room">
+        <h4 class="title-room">Sửa nhà</h4>
+        <div class="form-submit">
+            <a class="add_room back" href="{% url 'list_house' %}"><button class="btn btn-normal" type="button">Trở
+                    về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="form-newroom">
+            <form action="." method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ inf_house.id }}">
+                <div class="row form-item">
+                    <div class="col form-personnel">
+                        <label class="form-title-room" for="area">Khu vực</label>
+                        <select name="area" size="1">
+                            <option value="">------</option>
+                            {% for area in Area %}
+                            {% if area.id == inf_house.area.id %}
+                            <option value="{{area.id}}" selected>{{area.nameDistrict}}</option>
+                            {% if update_house.area %}
+                            <span>{{update_house.area.errors}}</span>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col form-house">
+                        <label class="form-title-room" for="nameHouse">Tên nhà</label>
+                        <input class="inp" type="text" name="nameHouse" value="{{inf_house.nameHouse}}">
+                        {% if update_house.nameHouse %}
+                        <span>{{update_house.nameHouse.errors}}</span>
+                        {% else %}
+                        <input class="inp" type="text" name="nameHouse" value="{{update_house.nameHouse}}">
+                        {% endif %}
+                    </div>
+                    <div class="col form-address">
+                        <label class="form-title-room" for="personnel">Mã nhân viên</label>
+                        <select name="personnel" size="1">
+                            <option value="">------</option>
+                            {% for personnel in Personnel %}
+                            {% if personnel.id_personnel == inf_house.personnel.id_personnel %}
+                            <option value="{{personnel.id_personnel}}" selected>{{personnel.fullname}}</option>
+                            {% else %}
+                            <option value="{{personnel.id_personnel}}">{{personnel.fullname}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row form-item">
+                    <div class="col form-address">
+                        <label class="form-title-room" for="address">Địa chỉ</label>
+                        <input class="inp inp-address" type="text" name="address" value="{{inf_house.address}}">
+                        {% if update_house.address %}
+                        <span>{{update_house.address.errors}}</span>
+                        {% else %}
+                        <input class="inp" type="text" name="address" value="{{update_house.address}}">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="submit submit-house">
+                        <button class="btn btn-primary" type="submit">Lưu</button>
+                        <a href="{% url 'delete_house' inf_house.id %}"><button class="btn btn-normal"
+                                type="button">Xóa</button></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

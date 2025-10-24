@@ -1,0 +1,81 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Nhập chỉ số điện{% endblock %}
+
+
+{% block main-content %}
+<div id="model-electricity">
+    <div class="form_navbar navbar_room">
+        <h4 class="title-room">Danh sách chỉ số điện</h4>
+        <div class="form-submit">
+            <a class="add_room" href="{% url 'home' %}"><button class="btn btn-normal">Trở về</button></a>
+        </div>
+    </div>
+    <div class="list-room-container">
+        <div class="form-add-electricity">
+            <div class="form-newroom">
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div class="row form-item">
+                        <div class="col room-list">
+                            <label for="">Danh sách phòng<label>
+                                    <select name="room" size="1">
+                                        <option value=""></option>
+                                        {% for room in Room %}
+                                        <option value="{{room.id}}">{{room.roomsNumber}}(Nhà{{room.house}})</option>
+                                        {% endfor %}
+                                    </select>
+                        </div>
+                        <div class="col old-electricity">
+                            <label for="">Chỉ số điện</label></li>
+                            <input class="inp" type="text" name="index_electricity">
+                            {% if new_electricity.index_electricity %}
+                            <span>{{new_electricity.index_electricity.errors}}</span>
+                            {% endif %}
+                        </div>
+                        <div class="col month-year">
+                            <label for="">Thời gian</label>
+                            <input class="inp" type="date" name="date">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Thêm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="display-body-table-container-electricity">
+            <table class="display-table">
+                <tbody>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 200px;">Chỉ số điện</th>
+                        <th style="width: 150px;">Phòng</th>
+                        <th style="width: 150px;">Nhà</th>
+                        <th style="width: 150px;">Thời gian</th>
+                        <th style="width: 150px;">Thao tác</th>
+                    </tr>
+                </tbody>
+                {% for electricity in Electricity %}
+                <tr>
+                    <td style="text-align: center;">{{electricity.id}}</td>
+                    <td style="text-align: center;">{{electricity.index_electricity}}</td>
+                    <td style="text-align: center;">{{electricity.room.roomsNumber}}</td>
+                    <td style="text-align: center;">{{electricity.room.house.nameHouse}}</td>
+                    <td style="text-align: center;">{{electricity.date|date:"d-m-Y"}}</td>
+                    <td>
+                        <div class="td-item">
+                            <a class="list-item-link edit-room"
+                                href="{% url 'edit_electricity' electricity.id %}"><button
+                                    type="button">Sửa</button></a>
+                            <a class="list-item-link edit-room"
+                                href="{% url 'delete_electricity' electricity.id %}"><button
+                                    type="button">Xóa</button></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

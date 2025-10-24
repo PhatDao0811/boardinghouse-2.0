@@ -1,0 +1,47 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main-content %}
+<div class="home-container">
+    <div class="home-status">
+        {% if user.username == 'admin' %}
+        <fieldset class="field_status">
+            <legend class="title-status">
+                Các loại phòng
+            </legend>
+            <div class="field_container">
+                <ul class="field_list list-container">
+                    <li class="list-item-room">
+                        <a class="list-item-link rented-room" href="{% url 'rooms_with_guests' %}">Phòng đang thuê</a>
+                    </li>
+                    <li class="list-item-room">
+                        <a class="list-item-link empty-room" href="{% url 'empty_rooms' %}">Phòng trống</a>
+                    </li>
+                </ul>
+            </div>
+        </fieldset>
+        {% elif not user.username %}
+        <fieldset class="field_status">
+            <legend class="title-status">
+                Các loại phòng
+            </legend>
+            <div class="field_container">
+                <ul class="field_list list-container">
+                    <li class="list-item-room">
+                        <a class="list-item-link rented-room" href="{% url 'rooms_with_guests' %}">Phòng đang thuê</a>
+                    </li>
+                    <li class="list-item-room">
+                        <a class="list-item-link empty-room" href="{% url 'empty_rooms' %}">Phòng trống</a>
+                    </li>
+                </ul>
+            </div>
+        </fieldset>
+        {% else %}
+            <div class="fake_new">
+                <h2>Đây là bài viết FAKE_NEW</h2>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock main-content %}

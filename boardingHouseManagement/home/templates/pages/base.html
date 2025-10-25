@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static 'base/css/register.css' %}">
     <link rel="stylesheet" href="{% static 'base/css/room.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'fonts/fontawesome-free-6.4.2-web/fontawesome-free-6.4.2/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/blogpost.css' %}">
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -97,16 +99,6 @@
                                         Nhân viên
                                     </a>
                                 </li>
-                                <li class="list-item"><a class="list-item-link" href="{% url 'list_statistical' %}">
-                                        <i class="fa fa-users"></i>
-                                        Thống kê
-                                    </a>
-                                </li>
-{#                                <li class="list-item"><a class="list-item-link" href="{% url 'list_file_image' %}">#}
-{#                                        <i class="fa-solid fa-camera"></i>#}
-{#                                        Nhận diện#}
-{#                                    </a>#}
-{#                                </li>#}
                                 {% elif not user.username %}
                                 <li class="list-item">
                                     <a class="list-item-link" href="{% url 'home' %}">
@@ -120,12 +112,6 @@
                                         Nhà
                                     </a>
                                 </li>
-{#                                <li class="list-item">#}
-{#                                    <a class="list-item-link" href="{% url 'list_room' %}">#}
-{#                                        <i class="fa-solid fa-door-closed icon"></i>#}
-{#                                        Phòng#}
-{#                                    </a>#}
-{#                                </li>#}
                                 {% else %}
                                 <li class="list-item">
                                     <a class="list-item-link" href="{% url 'home' %}">
@@ -145,12 +131,6 @@
                                         Phòng còn trống
                                     </a>
                                 </li>
-{#                                <li class="list-item">#}
-{#                                    <a class="list-item-link" href="{% url 'list_guests' %}">#}
-{#                                        <i class="fa-solid fa-user-check"></i>#}
-{#                                        Khách#}
-{#                                    </a>#}
-{#                                </li>#}
                                 {% endif %}
                             </ul>
                         </div>

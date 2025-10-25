@@ -197,8 +197,8 @@ class AddGuestForm(forms.ModelForm):
 class UpdateGuestForm(forms.ModelForm):
     class Meta:
         model = Guests
-        fields = ['room','fullname', 'phone', 'date']
-        
+        fields = ['room', 'fullname', 'phone', 'date']
+
     def clean_fullname(self):
         fullname = self.cleaned_data['fullname']
         if not re.search(r'^[A-Z][a-z]+\s(?:[A-Z][a-z]+\s?){1,3}[A-Z][a-z]+$', fullname):
@@ -208,12 +208,11 @@ class UpdateGuestForm(forms.ModelForm):
     def clean_phone(self):
         phone = self.cleaned_data['phone']
         if not re.search(r'^(09|03)([0-9]{8})$', phone):
-            raise forms.ValidationError('số điện thoại có 10 số và bắt đầu bằng 09 hoặc 03')
-        try:
-            Guests.objects.get(phone=phone)
-        except Guests.DoesNotExist:
-            return phone
-        raise forms.ValidationError('số điện thoại bạn nhập đã tồn tại')
+            raise forms.ValidationError('Số điện thoại có 10 số và bắt đầu bằng 09 hoặc 03')
+        existing_guest = Guests.objects.filter(phone=phone).exclude(id=self.instance.id)
+        if existing_guest.exists():
+            raise forms.ValidationError('Số điện thoại bạn nhập đã tồn tại')
+        return phone
                     
                
 class DeleteGuestForm(forms.ModelForm):

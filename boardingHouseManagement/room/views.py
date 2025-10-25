@@ -4,6 +4,7 @@ from .models import *
 from django.db.models import Sum
 from .forms import *
 from datetime import datetime
+from django.contrib.humanize.templatetags.humanize import intcomma
 # Create your views here.
 
 
@@ -132,24 +133,41 @@ def delete_electricity(request, id):
     return render(request, 'rooms/delete_electricity.html', {'delete_electricity': form, 'inf_electricity': electricity})
 
 def calculate_bill(request, room_id):
-    # Lấy chỉ số điện của hai tháng gần nhất của phòng đó
-    electricity_readings = Electricity.objects.filter(room=room_id).order_by('-date')[:2]
-    if len(electricity_readings) < 2:
-        return render(request, 'rooms/calculate_bill.html', {'message': 'Không có đủ dữ liệu để tính toán tiền điện cho phòng này.'})
-    
-    last_reading = electricity_readings[0].index_electricity
-    second_last_reading = electricity_readings[1].index_electricity
-    electricity = (last_reading - second_last_reading) * 3.5
-    if electricity < 0:
-        electricity = electricity * (-1)
-    
+    # Lấy 2 bản ghi chỉ số điện gần nhất theo ngày
+    readings = Electricity.objects.filter(room_id=room_id).order_by('-date')[:2]
+
+    start_date = None
+    end_date = None
+    electricity = 0
+
+    # Nếu có đủ 2 bản ghi, thì mới tính được
+    if len(readings) == 2:
+        new_index = readings[0].index_electricity  # chỉ số mới
+        old_index = readings[1].index_electricity  # chỉ số cũ
+
+        end_date = readings[0].date   # ngày mới
+        start_date = readings[1].date # ngày cũ
+
+        electricity = (new_index - old_index) * 3500
+        if electricity < 0:
+            electricity *= -1
+    else:
+        message = "Chưa có đủ dữ liệu để tính tiền điện."
+        room = Room.objects.get(pk=room_id)
+        return render(request, 'rooms/calculate_bill.html', {
+            'room_house': room.house,
+            'room_number': room.roomsNumber,
+            'message': message
+        })
+
+    # Các phần khác
     room = Room.objects.get(pk=room_id)
-    water = room.quantity * 100
-    wifi = 100
-    room_price = room.price * 1000000
-    total = electricity + water + wifi + room_price 
-    
-    return render(request, 'rooms/calculate_bill.html', {'room_house': room.house, 'room_number': room.roomsNumber, 'room_bill': room_price, 'electricity_bill': electricity, 'water_bill': water, 'wifi_bill': wifi, 'total_bill': total})
+    water = room.quantity * 100_000
+    wifi = 100_000
+    room_price = int(room.price) * 1_000_000
+    total_display = intcomma(int(electricity + water + wifi + room_price))
+
+    return render(request, 'rooms/calculate_bill.html', {'room_house': room.house,'room_number': room.roomsNumber,'room_bill': room_price,'electricity_bill': electricity,'water_bill': water,'wifi_bill': wifi,'total_bill': total_display,'start_date': start_date,'end_date': end_date,})
 
 #Guest
 def create_guests(request):
@@ -317,24 +335,6 @@ def search_area(request):
             area = Area.objects.filter(nameDistrict__icontains=nameDistrict)
     return render(request, 'rooms/search_area.html', {'search_area': form, 'search_nameDistrict': area})
 
-
-
-#statistical
-def statistical(request):
-    return render(request, 'rooms/list_statistical.html')
-
-
-def statistical_guest(request):
-    if request.method == 'POST':
-        from_month = request.POST.get('from_month')
-        to_month = request.POST.get('to_month')
-        
-        # Xử lý dữ liệu từ các biến from_month và to_month nếu cần
-        percen = calculate_percentage(from_month, to_month)
-        return render(request, 'rooms/information_statistical_guest.html', {'from_month': from_month, 'to_month': to_month, 'percent': percen})
-    else:
-        return render(request, 'rooms/information_statistical_guest.html', {'from_month': None, 'to_month': None})
-
 def calculate_percentage(from_month, to_month):
     # Chuyển đổi chuỗi tháng thành datetime
     from_date = datetime.strptime(from_month, '%Y-%m')
@@ -350,18 +350,6 @@ def calculate_percentage(from_month, to_month):
     percentage = (total_guests / (num_months * 50)) * 100
 
     return percentage
-
-def statistical_electricity(request):
-    if request.method == 'POST':
-        from_month_electricity = request.POST.get('from_month_electricity')
-
-        total_electricity = calculate_percentage_electricity(from_month_electricity)
-
-        # Truyền total_electricity vào context khi render template
-        return render(request, 'rooms/information_statistical_electricity.html', {'from_month': from_month_electricity, 'total_electricity': total_electricity})
-    else:
-        return render(request, 'rooms/information_statistical_electricity.html', {'from_month': None, 'to_month': None, 'total_electricity': None})
-
 
 def calculate_percentage_electricity(from_month_electricity):
     # Chuyển đổi chuỗi tháng thành datetime

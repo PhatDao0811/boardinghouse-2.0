@@ -1,15 +1,13 @@
 {% extends "pages/base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Trang chủ{% endblock %}
 
 {% block main-content %}
 <div class="home-container">
     <div class="home-status">
         {% if user.username == 'admin' %}
         <fieldset class="field_status">
-            <legend class="title-status">
-                Các loại phòng
-            </legend>
+            <legend class="title-status">Các loại phòng</legend>
             <div class="field_container">
                 <ul class="field_list list-container">
                     <li class="list-item-room">
@@ -21,11 +19,10 @@
                 </ul>
             </div>
         </fieldset>
+
         {% elif not user.username %}
         <fieldset class="field_status">
-            <legend class="title-status">
-                Các loại phòng
-            </legend>
+            <legend class="title-status">Các loại phòng</legend>
             <div class="field_container">
                 <ul class="field_list list-container">
                     <li class="list-item-room">
@@ -37,10 +34,58 @@
                 </ul>
             </div>
         </fieldset>
+
         {% else %}
-            <div class="fake_new">
-                <h2>Đây là bài viết FAKE_NEW</h2>
+        <div class="blogpost-wrapper-nt">
+            <div class="blogpost-container-nt">
+                <article class="blogpost-card-nt">
+                    <header class="blogpost-header-nt">
+                        <h1 class="blogpost-title-nt">Nhà trọ thông minh: Làm sao để thuê ở an toàn và quản lý hiệu quả</h1>
+                        <div class="blogpost-meta-nt">
+                            By <strong>ANH ĐÀO</strong> — <time datetime="2025-10-25">25/10/2025</time> • 5 phút trước
+                        </div>
+                    </header>
+
+                    <p class="blogpost-lead-nt">
+                        Dù bạn là người thuê lần đầu hay chủ trọ mới bắt đầu kinh doanh, bài viết này tổng hợp
+                        những kinh nghiệm thực tế giúp bạn chọn phòng an toàn, tiết kiệm chi phí và quản lý nhà trọ hiệu quả.
+                    </p>
+
+                    <section class="blogpost-section-nt">
+                        <h2>1. Trước khi thuê — Những điều nên kiểm tra</h2>
+                        <ul>
+                            <li><strong>Vị trí:</strong> Gần chợ, trạm xe bus, siêu thị, khu an ninh tốt.</li>
+                            <li><strong>Hợp đồng:</strong> Ghi rõ giá, cọc, thời hạn, quy định sửa chữa.</li>
+                            <li><strong>Điện nước:</strong> Hỏi rõ giá điện, nước, phí vệ sinh.</li>
+                            <li><strong>An ninh:</strong> Kiểm tra khóa, camera, bảo vệ.</li>
+                        </ul>
+                    </section>
+
+                    <section class="blogpost-section-nt">
+                        <h2>2. Mẹo tiết kiệm chi phí khi thuê</h2>
+                        <div class="blogpost-tips-nt">
+                            <div class="blogpost-tip-nt"><strong>Thương lượng giá:</strong> Thuê dài hạn thường được giảm giá.</div>
+                            <div class="blogpost-tip-nt"><strong>Ở ghép:</strong> Giúp chia sẻ chi phí điện nước.</div>
+                            <div class="blogpost-tip-nt"><strong>Dùng thiết bị tiết kiệm:</strong> Đèn LED, vòi nước tiết kiệm.</div>
+                        </div>
+                    </section>
+
+                    <section class="blogpost-section-nt">
+                        <h2>3. Quản lý nhà trọ cho chủ trọ</h2>
+                        <ul>
+                            <li><strong>Hợp đồng rõ ràng:</strong> Ghi rõ trách nhiệm sửa chữa.</li>
+                            <li><strong>Ghi chỉ số định kỳ:</strong> Ảnh chụp chỉ số điện nước.</li>
+                            <li><strong>Kiểm tra định kỳ:</strong> Tránh hư hỏng lớn.</li>
+                        </ul>
+                    </section>
+
+                    <div class="blogpost-cta-nt">
+                        Nhận <strong>mẫu hợp đồng & form điện nước</strong>? Liên hệ:
+                        <a href="mailto:admin@nhatro.example">admin@nhatro.example</a>
+                    </div>
+                </article>
             </div>
+        </div>
         {% endif %}
     </div>
 </div>

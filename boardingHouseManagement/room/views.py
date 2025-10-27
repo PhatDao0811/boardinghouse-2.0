@@ -335,36 +335,36 @@ def search_area(request):
             area = Area.objects.filter(nameDistrict__icontains=nameDistrict)
     return render(request, 'rooms/search_area.html', {'search_area': form, 'search_nameDistrict': area})
 
-def calculate_percentage(from_month, to_month):
-    # Chuyển đổi chuỗi tháng thành datetime
-    from_date = datetime.strptime(from_month, '%Y-%m')
-    to_date = datetime.strptime(to_month, '%Y-%m')
-
-    # Tính số tháng giữa from_month và to_month
-    num_months = (to_date.year - from_date.year) * 12 + (to_date.month - from_date.month) + 1
-    
-    # Lấy tổng số người từ CSDL từ from_month đến to_month
-    total_guests = Guests.objects.filter(date__month__range=[from_date.month, to_date.month]).count()
-
-    # Tính phần trăm của mỗi tháng
-    percentage = (total_guests / (num_months * 50)) * 100
-
-    return percentage
-
-def calculate_percentage_electricity(from_month_electricity):
-    # Chuyển đổi chuỗi tháng thành datetime
-    from_date = datetime.strptime(from_month_electricity, '%Y-%m')
-
-    # Lấy tổng lượng điện tiêu thụ của tháng trước
-    total_this_month = Electricity.objects.filter(date__month=from_date.month).aggregate(total=Sum('index_electricity'))
-
-    # print("Total this month:", total_this_month)  # Kiểm tra tổng lượng điện tiêu thụ của tháng này
-    # print("Total previous month:", total_previous_month)  # Kiểm tra tổng lượng điện tiêu thụ của tháng trước
-
-    if total_this_month['total'] is None :
-        # Handle case when no data is found
-        return None
-
-    total = total_this_month['total']
-
-    return total
+# def calculate_percentage(from_month, to_month):
+#     # Chuyển đổi chuỗi tháng thành datetime
+#     from_date = datetime.strptime(from_month, '%Y-%m')
+#     to_date = datetime.strptime(to_month, '%Y-%m')
+#
+#     # Tính số tháng giữa from_month và to_month
+#     num_months = (to_date.year - from_date.year) * 12 + (to_date.month - from_date.month) + 1
+#
+#     # Lấy tổng số người từ CSDL từ from_month đến to_month
+#     total_guests = Guests.objects.filter(date__month__range=[from_date.month, to_date.month]).count()
+#
+#     # Tính phần trăm của mỗi tháng
+#     percentage = (total_guests / (num_months * 50)) * 100
+#
+#     return percentage
+#
+# def calculate_percentage_electricity(from_month_electricity):
+#     # Chuyển đổi chuỗi tháng thành datetime
+#     from_date = datetime.strptime(from_month_electricity, '%Y-%m')
+#
+#     # Lấy tổng lượng điện tiêu thụ của tháng trước
+#     total_this_month = Electricity.objects.filter(date__month=from_date.month).aggregate(total=Sum('index_electricity'))
+#
+#     # print("Total this month:", total_this_month)  # Kiểm tra tổng lượng điện tiêu thụ của tháng này
+#     # print("Total previous month:", total_previous_month)  # Kiểm tra tổng lượng điện tiêu thụ của tháng trước
+#
+#     if total_this_month['total'] is None :
+#         # Handle case when no data is found
+#         return None
+#
+#     total = total_this_month['total']
+#
+#     return total

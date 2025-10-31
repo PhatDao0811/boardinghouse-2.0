@@ -99,6 +99,25 @@
                                         Nhân viên
                                     </a>
                                 </li>
+                                {% elif user.username|slice:":2" == "NV" %}
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'home' %}">
+                                        <i class="fa-solid fa-house"></i>
+                                        Trang chủ
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'list_house' %}">
+                                        <i class="fa-solid fa-house-user"></i>
+                                        Nhà đang quản lý
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="list-item-link" href="{% url 'empty_rooms' %}">
+                                        <i class="fa-solid fa-door-closed icon"></i>
+                                        Phòng đang quản lý
+                                    </a>
+                                </li>
                                 {% elif not user.username %}
                                 <li class="list-item">
                                     <a class="list-item-link" href="{% url 'home' %}">

@@ -254,6 +254,15 @@ def create_personnel(request):
             return redirect('list_personnel')
     return render(request, 'rooms/list_personnel.html', {'Personnel': personnel, 'new_personnel': form})
 
+# lay id nhan vien
+def id_personel(request):
+    username = request.user.username  # ví dụ: NVVIP
+    if username.startswith("NV"):
+        nv_id = username  # lấy phần sau 'NV' -> 'VIP'
+    else:
+        nv_id = None
+
+    return render(request, 'pages/list_house_of_personel.html', {'nv_ids': nv_id})
 
 def get_house_of_personnel(request, id_personnel):
     personnel = Personnel.objects.get(id_personnel=id_personnel)

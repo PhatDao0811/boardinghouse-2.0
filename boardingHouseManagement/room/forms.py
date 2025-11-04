@@ -94,7 +94,7 @@ class AddHouse(forms.ModelForm):
 
     def clean_nameHouse(self):
         nameHouse = self.cleaned_data['nameHouse']
-        if not re.search(r'^\w+$', nameHouse):
+        if not re.search(r'^[A-Za-z0-9 ]+$', nameHouse):
             raise forms.ValidationError("Tên nhà có kí tự đặc biệt")
         return nameHouse
 
@@ -240,7 +240,7 @@ class AddPersonnel(forms.ModelForm):
 
     def clean_id(self):
         id_personnel = self.cleaned_data['id_personnel']
-        if not re.search(r'^(NV)[0-9]+$', id_personnel):
+        if not re.search(r'^(NV)\w+$', id_personnel):
             raise forms.ValidationError('Mã nhân viên có dạng NV"số". VD: NV1, NV42, ...')
         try:
             Personnel.objects.get(id_personnel=id_personnel)

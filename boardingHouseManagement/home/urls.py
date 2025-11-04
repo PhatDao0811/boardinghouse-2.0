@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from room import views as room_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -9,5 +10,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('rooms_with_guests/', views.rooms_with_guests, name='rooms_with_guests'),
     path('empty_rooms/', views.empty_rooms, name='empty_rooms'),
+    path('room/<str:id_personnel>/list_house_of_personnel', room_views.get_house_of_personnel, name='get_house_of_personnel'),
 
 ]

@@ -47,3 +47,6 @@ def empty_rooms(request):
     empty_rooms = Room.objects.filter(guest__isnull=True)
     return render(request, 'pages/empty_rooms.html', {'empty_rooms': empty_rooms})
 
+# hàm tách mã nhân viên
+
+

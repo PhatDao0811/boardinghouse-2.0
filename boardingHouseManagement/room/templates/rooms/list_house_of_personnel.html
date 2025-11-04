@@ -15,7 +15,7 @@
             </form>
         </div>
         <div class="navbar-item">
-            <a class="add_room" href="{% url 'list_personnel' %}"><button class="btn btn-normal">Trở về</button></a>
+            <a class="add_room" href="{% url 'home' %}"><button class="btn btn-normal">Trở về</button></a>
         </div>
     </div>
     <div class="list-room-container">
@@ -28,7 +28,6 @@
                         <th style="width: 300px;">Địa chỉ</th>
                         <th style="width: 100px;">Nhân viên</th>
                         <th style="width: 100px;">Khu vực</th>
-                        <th style="width: 150px;">Thao tác</th>
                     </tr>
                 </tbody>
                 {% for house in house_of_personnel %}
@@ -38,14 +37,6 @@
                     <td style="text-align: center; line-height: 25px;">{{house.address}}</td>
                     <td style="text-align: center; line-height: 25px;">{{house.personnel.fullname}}</td>
                     <td style="text-align: center;">{{house.area}}</td>
-                    <td>
-                        <div class="td-item">
-                            <a class="list-item-link edit-room" href="{% url 'edit_house' house.id %}"><button class=""
-                                    type="button">Sửa</button></a>
-                            <a class="list-item-link edit-room" href="{% url 'delete_house' house.id %}"><button
-                                    class="" type="button">Xóa</button></a>
-                        </div>
-                    </td>
                 </tr>
                 {% endfor %}
             </table>

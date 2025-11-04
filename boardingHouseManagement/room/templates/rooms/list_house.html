@@ -112,7 +112,7 @@
                 {% endfor %}
             </table>
         </div>
-        {% else %}
+        {% elif user.username|slice:":2" == "NV" %}
         <div class="display-body-table-container-house">
             <table class="display-table">
                 <tbody>

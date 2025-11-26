@@ -93,6 +93,7 @@ def delete_house(request, id):
 
 def search_nameHouse(request):
     form = SearchHouse()
+    house = []
     if request.method == 'POST':
         form = SearchHouse(request.POST)
         if form.is_valid():
